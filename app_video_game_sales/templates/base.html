@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Video Game Industry Analytics Web Application{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header>
+    <h1>Video Game Industry Analytics Web Application</h1>
+    <p class="small">Simple Flask + SQLite app using a normalized database built from my_vgsales.csv.</p>
+    <nav>
+        <a href="{{ url_for('index') }}">Home</a>
+        <a href="{{ url_for('add_game') }}">Add Game</a>
+        <a href="{{ url_for('schema') }}">Schema Info</a>
+    </nav>
+</header>
+
+{% block content %}{% endblock %}
+</body>
+</html>

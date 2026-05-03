@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}{{ action }} Game{% endblock %}
+
+{% block content %}
+<section class="card">
+    <h2>{{ action }} Game</h2>
+    <form method="POST" class="form-grid">
+        <label>Title</label>
+        <input name="title" required value="{{ game.title if game else '' }}">
+
+        <label>Release Year</label>
+        <input name="release_year" type="number" min="1970" max="2035" value="{{ game.release_year if game else '' }}">
+
+        <label>Platform</label>
+        <input name="platform" required value="{{ game.platform_name if game else '' }}">
+
+        <label>Genre</label>
+        <input name="genre" required value="{{ game.genre_name if game else '' }}">
+
+        <label>Publisher</label>
+        <input name="publisher" required value="{{ game.publisher_name if game else '' }}">
+
+        <label>NA Sales</label>
+        <input name="na_sales" type="number" step="0.01" min="0" value="{{ game.na_sales if game else 0 }}">
+
+        <label>EU Sales</label>
+        <input name="eu_sales" type="number" step="0.01" min="0" value="{{ game.eu_sales if game else 0 }}">
+
+        <label>JP Sales</label>
+        <input name="jp_sales" type="number" step="0.01" min="0" value="{{ game.jp_sales if game else 0 }}">
+
+        <label>Other Sales</label>
+        <input name="other_sales" type="number" step="0.01" min="0" value="{{ game.other_sales if game else 0 }}">
+
+        <label>Global Sales</label>
+        <input name="global_sales" type="number" step="0.01" min="0" value="{{ game.global_sales if game else 0 }}">
+
+        <div></div>
+        <div>
+            <button type="submit">{{ action }} Game</button>
+            <a href="{{ url_for('index') }}">Cancel</a>
+        </div>
+    </form>
+</section>
+{% endblock %}

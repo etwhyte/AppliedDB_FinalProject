@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Schema Info{% endblock %}
+
+{% block content %}
+<section class="card">
+    <h2>Database Schema</h2>
+    <p>This project uses a normalized relational database created from the raw my_vgsales.csv file.</p>
+
+    <ul>
+        <li><strong>games</strong>: title, release year, regional sales, global sales, and foreign keys</li>
+        <li><strong>platforms</strong>: platform lookup table</li>
+        <li><strong>genres</strong>: genre lookup table</li>
+        <li><strong>publishers</strong>: publisher lookup table</li>
+        <li><strong>vg_sales_raw</strong>: staging table that keeps the original flat CSV structure</li>
+    </ul>
+
+    <h3>Current Table Counts</h3>
+    <table>
+        <tr><th>Table</th><th>Rows</th></tr>
+        <tr><td>games</td><td>{{ counts.games }}</td></tr>
+        <tr><td>platforms</td><td>{{ counts.platforms }}</td></tr>
+        <tr><td>genres</td><td>{{ counts.genres }}</td></tr>
+        <tr><td>publishers</td><td>{{ counts.publishers }}</td></tr>
+    </table>
+</section>
+{% endblock %}

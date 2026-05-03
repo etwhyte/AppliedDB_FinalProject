@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{% block title %}Video Game Industry Analytics Web Application{% endblock %}
+
+{% block content %}
+<section class="card">
+    <h2>Filter Game Records</h2>
+    <form method="GET" action="{{ url_for('index') }}" class="filters">
+        <div>
+            <label>Search title</label><br>
+            <input type="text" name="search" value="{{ selected.search }}">
+        </div>
+
+        <div>
+            <label>Platform</label><br>
+            <select name="platform">
+                <option value="">All</option>
+                {% for row in platforms %}
+                    <option value="{{ row.platform_name }}" {% if selected.platform == row.platform_name %}selected{% endif %}>
+                        {{ row.platform_name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div>
+            <label>Genre</label><br>
+            <select name="genre">
+                <option value="">All</option>
+                {% for row in genres %}
+                    <option value="{{ row.genre_name }}" {% if selected.genre == row.genre_name %}selected{% endif %}>
+                        {{ row.genre_name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div>
+            <label>Publisher</label><br>
+            <select name="publisher">
+                <option value="">All</option>
+                {% for row in publishers %}
+                    <option value="{{ row.publisher_name }}" {% if selected.publisher == row.publisher_name %}selected{% endif %}>
+                        {{ row.publisher_name }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div>
+            <label>Year</label><br>
+            <select name="year">
+                <option value="">All</option>
+                {% for row in years %}
+                    <option value="{{ row.release_year }}" {% if selected.year|string == row.release_year|string %}selected{% endif %}>
+                        {{ row.release_year }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div>
+            <button type="submit">Apply Filters</button>
+            <a href="{{ url_for('index') }}">Clear</a>
+        </div>
+    </form>
+</section>
+
+<section class="card">
+    <h2>Top Platforms by Global Sales</h2>
+    <p class="small">This summary updates based on the filters above.</p>
+    <table>
+        <tr>
+            <th>Platform</th>
+            <th>Game Count</th>
+            <th>Total Global Sales</th>
+        </tr>
+        {% for row in summary %}
+        <tr>
+            <td>{{ row.platform_name }}</td>
+            <td>{{ row.game_count }}</td>
+            <td>{{ row.total_global_sales }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</section>
+
+<section class="card">
+    <h2>Game Results</h2>
+    <p class="small">Showing up to 100 records.</p>
+    <table>
+        <tr>
+            <th>Title</th>
+            <th>Year</th>
+            <th>Platform</th>
+            <th>Genre</th>
+            <th>Publisher</th>
+            <th>Global Sales</th>
+            <th>Actions</th>
+        </tr>
+        {% for row in games %}
+        <tr>
+            <td>{{ row.title }}</td>
+            <td>{{ row.release_year }}</td>
+            <td>{{ row.platform_name }}</td>
+            <td>{{ row.genre_name }}</td>
+            <td>{{ row.publisher_name }}</td>
+            <td>{{ row.global_sales }}</td>
+            <td class="actions">
+                <a href="{{ url_for('edit_game', game_id=row.game_id) }}">Edit</a>
+                <form method="POST" action="{{ url_for('delete_game', game_id=row.game_id) }}" class="inline-form">
+                    <button type="submit" onclick="return confirm('Delete this game?')">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</section>
+{% endblock %}
